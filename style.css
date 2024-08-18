@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.toggleButton {
+  text-decoration: underline;
+}
+
+.card-title {
+  color: #6e6060;
+  font-weight: 600;
+}
+
+.card-text {
+  font-size: 15px;
+}
+
+.ellipsis {
+  display: inline;
+}
+
+.no-ellipsis {
+  display: none;
+}
