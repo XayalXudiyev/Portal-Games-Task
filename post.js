@@ -14,15 +14,15 @@ export const fetchPosts = async ({ page = 1, limit = 100 }) => {
 
 
 export const createPost = (post) => {
-  const postCard = document.createElement("div");
-  postCard.className = "col-md-4 mb-4";
+  const card = document.createElement("div");
+  card.className = "col-md-4 mb-4";
 
   const postBody = post.body.split(" ");
   const longText = postBody.length > 10;
   const previewText = postBody.slice(0, 9).join(" ");
   const hiddenText = postBody.slice(9).join(" ");
 
-  postCard.innerHTML = `
+  card.innerHTML = `
     <div class="card h-100">
       <div class="card-body">
         <h5 class="card-id">Post ID: ${post.id}</h5>
@@ -38,13 +38,13 @@ export const createPost = (post) => {
   `;
 
   if (longText) {
-    const toggleButton = postCard.querySelector(".toggleButton");
+    const toggleButton = card.querySelector(".toggleButton");
     toggleButton.addEventListener("click", () => {
-      const hiddenTextElement = postCard
+      const hiddenTextElement = card
         .querySelector(".hidden-text")
         .classList.toggle("visible");
     });
   }
 
-  return postCard;
+  return card;
 };

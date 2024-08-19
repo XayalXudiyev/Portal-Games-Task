@@ -1,7 +1,7 @@
 import { createPost, fetchPosts } from "./post";
 
 document.addEventListener("DOMContentLoaded", async function () {
-  const postsContainer = document.getElementById("posts-container");
+  const postsContainer = document.getElementById("posts");
 
   const posts = await fetchPosts({ page: 1, limit: 9 });
   posts.forEach((post) => {
