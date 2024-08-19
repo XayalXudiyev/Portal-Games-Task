@@ -8,10 +8,10 @@ A web application built with Vite, using Axios for API requests, Bootstrap for s
 ## Installation
 
 1. Clone the repository:
-   
-git clone https://github.com/XayalXudiyev/Portal-Games-Task.git
-cd Portal-Games-Task
-npm install
-npm run dev
+```bash
+   git clone https://github.com/XayalXudiyev/Portal-Games-Task.git
+   cd Portal-Games-Task
+   npm install
+   npm run dev
 
 
