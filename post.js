@@ -1,66 +1,50 @@
-export async function fetchPosts({ page = 1, limit = 100 }) {
-    try {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts",
-        {
-          params: {
-            _page: page,
-            _limit: limit,
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
+export const fetchPosts = async ({ page = 1, limit = 100 }) => {
+  try {
+    const res = await axios.get("https://jsonplaceholder.typicode.com/posts", {
+      params: {
+        _page: page,
+        _limit: limit,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
   }
-  
-  export function createPostElement(post) {
-    const postCard = document.createElement("div");
-    postCard.className = "col-md-4 mb-4";
-  
-    const postBody = post.body.split(" ");
-    console.log(post.body)
-    const isLongText = postBody.length > 10;
-    const fullTextId = `full-text-${post.id}`;
-  
-    postCard.innerHTML = `
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-id">Post ID: ${post.id}</h5>
-            <p class="card-title">${post.title}</p>
-            <p class="card-text">
-              ${postBody.slice(0, 9).join(" ")}
-              ${
-                isLongText
-                  ? ` <span id="${fullTextId}" class="collapse">${postBody
-                      .slice(10)
-                      .join(" ")}</span>
-                <span class="more-text">
-                  <span class="ellipsis">... </span>
-                  <a href="#" class="toggleButton" data-toggle="collapse" data-target="#${fullTextId}" aria-expanded="false">
-                    Read more
-                  </a>
-                </span>`
-                  : ""
-              }
-            </p>
-          </div>
-        </div>
-      `;
-  
-    if (isLongText) {
-      const toggleButton = postCard.querySelector(".toggleButton");
-      toggleButton.addEventListener("click", function (e) {
-        e.preventDefault();
-        const isExpanded = toggleButton.getAttribute("aria-expanded") === "true";
-        toggleButton.setAttribute("aria-expanded", !isExpanded);
-        toggleButton.textContent = isExpanded ? "Read more" : "Read less";
-        postCard
-          .querySelector(".ellipsis")
-          .classList.toggle("no-ellipsis", !isExpanded);
-      });
-    }
-    return postCard;
+};
+
+
+export const createPost = (post) => {
+  const postCard = document.createElement("div");
+  postCard.className = "col-md-4 mb-4";
+
+  const postBody = post.body.split(" ");
+  const longText = postBody.length > 10;
+  const previewText = postBody.slice(0, 9).join(" ");
+  const hiddenText = postBody.slice(9).join(" ");
+
+  postCard.innerHTML = `
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-id">Post ID: ${post.id}</h5>
+        <p class="card-title">${post.title}</p>
+        <p class="card-text">
+          ${previewText}
+          ${longText ? `<span class="hidden-text">${hiddenText}</span>` : ""}
+          ${longText ? `<a href="#" class="toggleButton"></a>` : ""}
+        </p>
+        
+      </div>
+    </div>
+  `;
+
+  if (longText) {
+    const toggleButton = postCard.querySelector(".toggleButton");
+    toggleButton.addEventListener("click", () => {
+      const hiddenTextElement = postCard
+        .querySelector(".hidden-text")
+        .classList.toggle("visible");
+    });
   }
-  
+
+  return postCard;
+};

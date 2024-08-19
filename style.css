@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-.toggleButton {
-  text-decoration: underline;
-}
-
 .card-title {
   color: #6e6060;
   font-weight: 600;
@@ -17,10 +13,31 @@
   font-size: 15px;
 }
 
-.ellipsis {
+.hidden-text {
+  display: none;
+}
+
+.hidden-text.visible {
   display: inline;
 }
 
-.no-ellipsis {
-  display: none;
+.toggleButton {
+  text-decoration: none;
+}
+
+.toggleButton::before {
+  content: "... ";
+}
+
+.hidden-text.visible+.toggleButton::before {
+  content: "";
+}
+
+.hidden-text.visible+.toggleButton::after {
+  content: " Read less";
+}
+
+.toggleButton::after {
+  content: " Read more";
+  text-decoration: underline;
 }
